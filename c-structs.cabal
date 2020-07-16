@@ -1,0 +1,20 @@
+name: C-Structs
+version: 0.0.0.1
+synopsis: C-Structs implementation for Haskell
+description: Create correct C structs from Haskell!
+homepage: https://github.com/pinselimo/cstructs-in-haskell
+license: MIT
+license-file: LICENSE
+author: Simon Plakolb
+maintainer: s.plakolb@gmail.com
+category: Foreign
+build-type: Simple
+cabal-version: >= 2.4
+
+library
+    exposed-modules: 
+        Foreign.C.Structs
+    other-modules:
+        Foreign.C.Structs.Types
+        Foreign.C.Structs.Utils
+    build-depends:  base >= 3.0 && < 5.0
