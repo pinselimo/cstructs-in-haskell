@@ -36,3 +36,11 @@ Test-Suite unit-tests
         test-framework
         test-framework-hunit
 
+Test-Suite doctest
+  type: exitcode-stdio-1.0
+  main-is: DocTest.hs
+  hs-source-dirs: test
+  build-depends:
+    base
+    doctest
+    Glob
