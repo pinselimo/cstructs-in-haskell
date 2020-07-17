@@ -26,3 +26,13 @@ Library
     Build-Depends:  base
     HS-Source-Dirs: src
 
+Test-Suite unit-tests
+    type: exitcode-stdio-1.0
+    main-is: UnitTests.hs
+    hs-source-dirs: test
+    build-depends:
+        base
+        HUnit
+        test-framework
+        test-framework-hunit
+
