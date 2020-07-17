@@ -29,9 +29,21 @@ module Foreign.C.Structs (
     ,   s3fst -- ^ Accesses the first field of a @Struct3@
     ,   s3snd -- ^ Accesses the second field of a @Struct3@
     ,   s3trd -- ^ Accesses the third field of a @Struct3@
+    ),
+    -- | A @Struct4@ can hold four records of any @Storable@ types @a@, @b@, @c@ and @d@.
+    -- It is itself an instance of @Storable@ and can be used inside a @Foreign.Ptr@.
+    Struct4(
+        Struct4 -- ^ Constructor for structs with four fields. All four arguments must be instances of @Storable@.
+    ,   s4fst -- ^ Accesses the first field of a @Struct4@
+    ,   s4snd -- ^ Accesses the second field of a @Struct4@
+    ,   s4trd -- ^ Accesses the third field of a @Struct4@
+    ,   s4fth -- ^ Accesses the fourth field of a @Struct4@
     )
 ) where
 
 import Foreign.C.Structs.Types (
-    Struct2(..),
-    Struct3(..))
+     Struct2(..)
+    ,Struct3(..)
+    ,Struct4(..)
+    )
+
