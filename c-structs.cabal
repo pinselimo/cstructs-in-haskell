@@ -4,6 +4,7 @@ Cabal-Version: >= 1.2
 License: MIT
 License-file: LICENSE
 Author: Simon Plakolb
+Copyright: (c) 2020 Simon Plakolb
 Homepage: https://github.com/pinselimo/cstructs-in-haskell
 Synopsis: C-Structs implementation for Haskell
 Description: Create correct C structs from Haskell!
@@ -11,10 +12,17 @@ Maintainer: s.plakolb@gmail.com
 Category: Foreign
 Build-Type: Simple
 
+Source-Repository head
+    type: git
+    location: https://github.com/pinselimo/cstructs-in-haskell
+
 Library
-    Exposed-Modules: 
+    Default-Language: Haskell2010
+    Exposed-Modules:
         Foreign.C.Structs
     Other-Modules:
         Foreign.C.Structs.Types
         Foreign.C.Structs.Utils
     Build-Depends:  base
+    HS-Source-Dirs: src
+
