@@ -41,7 +41,7 @@ s3Size cs
     |  sum_bc <= amax = 2 * amax
     |  sum_ab <= amax = 2 * amax
     |  otherwise      = 3 * amax
-    where amax = t3Alignment cs
+    where amax = s3Alignment cs
           size_a  = sizeOf $ s3fst cs
           size_b  = sizeOf $ s3snd cs
           size_c  = sizeOf $ s3trd cs
@@ -88,7 +88,7 @@ s4Size cs
     && sum_cd  <= amax = 3 * amax
     |  sum_bc  <= amax = 3 * amax
     |  otherwise       = 4 * amax
-    where amax    = t4Alignment cs
+    where amax    = s4Alignment cs
           size_a  = sizeOf $ s4fst cs
           size_b  = sizeOf $ s4snd cs
           size_c  = sizeOf $ s4trd cs
@@ -100,7 +100,7 @@ s4Size cs
           sum_bcd = size_b + sum_cd
 
 s4Alignment :: (Storable a, Storable b, Storable c, Storable d) => Struct4 a b c d -> Int
-ssAlignment cs = fmax [a, b, c, d]
+s4Alignment cs = fmax [a, b, c, d]
     where a = alignment $ s4fst cs
           b = alignment $ s4snd cs
           c = alignment $ s4trd cs
