@@ -21,7 +21,7 @@ Library
     Exposed-Modules:
         Foreign.C.Structs
     Other-Modules:
-        Foreign.C.Structs.Types
+        Foreign.C.Structs.Types,
         Foreign.C.Structs.Utils
     Build-Depends:  base
     HS-Source-Dirs: src
@@ -31,9 +31,9 @@ Test-Suite unit-tests
     main-is: Main.hs
     hs-source-dirs: test
     build-depends:
-        base
-        HUnit
-        test-framework
+        base                    ,
+        HUnit                   ,
+        test-framework          ,
         test-framework-hunit
 
 Test-Suite doctest
@@ -41,6 +41,6 @@ Test-Suite doctest
   main-is: DocTest.hs
   hs-source-dirs: test
   build-depends:
-    base
-    doctest
+    base                        ,
+    doctest                     ,
     Glob
