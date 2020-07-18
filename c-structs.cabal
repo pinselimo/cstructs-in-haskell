@@ -1,6 +1,6 @@
 Name: c-structs
 Version: 0.0.0.1
-Cabal-Version: >= 1.2
+Cabal-Version: >= 1.8
 License: MIT
 License-file: LICENSE
 Author: Simon Plakolb
@@ -31,10 +31,13 @@ Test-Suite unit-tests
     main-is: Main.hs
     hs-source-dirs: test
     build-depends:
-        base                    ,
-        HUnit                   ,
-        test-framework          ,
-        test-framework-hunit
+        base                        ,
+        c-structs                   ,
+        HUnit                       ,
+        QuickCheck                  ,
+        test-framework              ,
+        test-framework-hunit        ,
+        test-framework-quickcheck2
 
 Test-Suite doctest
   type: exitcode-stdio-1.0
