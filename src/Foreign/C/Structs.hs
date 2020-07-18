@@ -15,31 +15,10 @@ The types are named after the number of records they support: @Struct2@, @Struct
 If you'd like to request a type with more records, feel free to issue a PR or contact the maintainer.
 -}
 module Foreign.C.Structs (
-    -- | A @Struct2@ can hold two records of any @Storable@ types @a@ and @b@.
-    -- It is itself an instance of @Storable@ and can be used inside a @Foreign.Ptr@.
-    Struct2(
-        Struct2 -- ^ Constructor for structs with two fields. Both arguments must be instances of @Storable@.
-    ,   s2fst -- ^ Accesses the first field of a @Struct2@
-    ,   s2snd -- ^ Accesses the second field of a @Struct2@
-    ),
-    -- | A @Struct3@ can hold three records of any @Storable@ types @a@, @b@ and @c@.
-    -- It is itself an instance of @Storable@ and can be used inside a @Foreign.Ptr@.
-    Struct3(
-        Struct3 -- ^ Constructor for structs with three fields. All three arguments must be instances of @Storable@.
-    ,   s3fst -- ^ Accesses the first field of a @Struct3@
-    ,   s3snd -- ^ Accesses the second field of a @Struct3@
-    ,   s3trd -- ^ Accesses the third field of a @Struct3@
-    ),
-    -- | A @Struct4@ can hold four records of any @Storable@ types @a@, @b@, @c@ and @d@.
-    -- It is itself an instance of @Storable@ and can be used inside a @Foreign.Ptr@.
-    Struct4(
-        Struct4 -- ^ Constructor for structs with four fields. All four arguments must be instances of @Storable@.
-    ,   s4fst -- ^ Accesses the first field of a @Struct4@
-    ,   s4snd -- ^ Accesses the second field of a @Struct4@
-    ,   s4trd -- ^ Accesses the third field of a @Struct4@
-    ,   s4fth -- ^ Accesses the fourth field of a @Struct4@
-    )
-) where
+      Struct2( Struct2, s2fst, s2snd)
+    , Struct3( Struct3, s3fst, s3snd, s3trd)
+    , Struct4( Struct4, s4fst, s4snd, s4trd, s4fth)
+    ) where
 
 import Foreign.C.Structs.Types (
      Struct2(..)
