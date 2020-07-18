@@ -1,4 +1,4 @@
-Name: c-structs
+Name: C-structs
 Version: 0.0.0.1
 Cabal-Version: >= 1.8
 License: MIT
@@ -32,7 +32,7 @@ Test-Suite unit-tests
     hs-source-dirs: test
     build-depends:
         base                        ,
-        c-structs                   ,
+        C-structs                   ,
         HUnit                       ,
         QuickCheck                  ,
         test-framework              ,
