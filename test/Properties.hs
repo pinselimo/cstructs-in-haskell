@@ -1,25 +1,42 @@
 module Properties where
 
-import Test.QuickCheck (Property, Arbitrary, arbitrary, forAll, Gen)
+import Test.QuickCheck (Property, Arbitrary, arbitrary)
 import Test.QuickCheck.Monadic (monadicIO, run, assert)
 import Test.Framework.Providers.API (testGroup)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 
+import Foreign.C.Types (CChar, CInt, CDouble)
 import Foreign.Storable (Storable, peek)
 import Foreign.Marshal.Utils (new)
 import Foreign.Marshal.Alloc (free)
 import Foreign.C.Structs (Struct2(..), Struct3(..), Struct4(..))
 
-tests = testGroup "Properties" [
-      testProperty "Identity Struct2" (prop_idStruct2 :: Struct2 Double Double -> Property)
-    , testProperty "Identity Struct2" (prop_idStruct2 :: Struct2 Int Int -> Property)
-    , testProperty "Identity Struct3" (prop_idStruct3 :: Struct3 Double Int Char -> Property)
-    , testProperty "Identity Struct3" (prop_idStruct3 :: Struct3 Char Double Int -> Property)
-    , testProperty "Identity Struct3" (prop_idStruct3 :: Struct3 Int Double Char -> Property)
-    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Int Double Int Char -> Property)
-    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Int Int Double Char -> Property)
-    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Int Double Int Double -> Property)
-    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Double Int Char Char -> Property)
+tests = testGroup "Properties" [test_idStruct2, test_idStruct3, test_idStruct4]
+
+test_idStruct2 = testGroup "Identity Struct2" [
+      testProperty "Double Double"  (prop_idStruct2 :: Struct2 Double Double -> Property)
+    , testProperty "Int Int"        (prop_idStruct2 :: Struct2 Int Int       -> Property)
+    , testProperty "Int CInt"       (prop_idStruct2 :: Struct2 Int CInt      -> Property)
+    , testProperty "CChar CInt"     (prop_idStruct2 :: Struct2 CChar CInt    -> Property)
+    ]
+
+test_idStruct3 = testGroup "Identity Struct3" [
+      testProperty "Double Int CChar" (prop_idStruct3 :: Struct3 Double Int CChar -> Property)
+    , testProperty "CChar Double Int" (prop_idStruct3 :: Struct3 CChar Double Int -> Property)
+    , testProperty "Int Double CChar" (prop_idStruct3 :: Struct3 Int Double CChar -> Property)
+    , testProperty "CChar CChar CChar" (prop_idStruct3 :: Struct3 CChar CChar CChar -> Property)
+    ]
+
+test_idStruct4 = testGroup "Identity Struct4" [
+      testProperty "Int Double Int CChar" (prop_idStruct4 :: Struct4 Int Double Int CChar -> Property)
+    , testProperty "Int Int Double CChar" (prop_idStruct4 :: Struct4 Int Int Double CChar -> Property)
+    , testProperty "Int Double Int Double" (prop_idStruct4 :: Struct4 Int Double Int Double -> Property)
+    , testProperty "Double Int Char Char" (prop_idStruct4 :: Struct4 Double Int Char Char -> Property)
+    , testProperty "CChar Int CChar Double" (prop_idStruct4 :: Struct4 CChar Int CChar Double -> Property)
+    , testProperty "Double Double CChar CInt" (prop_idStruct4 :: Struct4 Double Double CChar CInt -> Property)
+    , testProperty "CChar CInt Double CChar" (prop_idStruct4 :: Struct4 CChar CInt Double CChar -> Property)
+    , testProperty "CChar Double CInt Double" (prop_idStruct4 :: Struct4 CChar Double CInt Double -> Property)
+    , testProperty "CChar CChar CChar CChar" (prop_idStruct4 :: Struct4 CChar CChar CChar CChar -> Property)
     ]
 
 instance ( Storable a, Arbitrary a
