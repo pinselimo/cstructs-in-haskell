@@ -1,6 +1,6 @@
 module Properties where
 
-import Test.QuickCheck (Arbitrary, arbitrary)
+import Test.QuickCheck (Property, Arbitrary, arbitrary, forAll, Gen)
 import Test.QuickCheck.Monadic (monadicIO, run, assert)
 import Test.Framework.Providers.API (testGroup)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
@@ -11,9 +11,15 @@ import Foreign.Marshal.Alloc (free)
 import Foreign.C.Structs (Struct2(..), Struct3(..), Struct4(..))
 
 tests = testGroup "Properties" [
-      testProperty prop_idStruct2
-    , testProperty prop_idStruct3
-    , testProperty prop_idStruct4
+      testProperty "Identity Struct2" (prop_idStruct2 :: Struct2 Double Double -> Property)
+    , testProperty "Identity Struct2" (prop_idStruct2 :: Struct2 Int Int -> Property)
+    , testProperty "Identity Struct3" (prop_idStruct3 :: Struct3 Double Int Char -> Property)
+    , testProperty "Identity Struct3" (prop_idStruct3 :: Struct3 Char Double Int -> Property)
+    , testProperty "Identity Struct3" (prop_idStruct3 :: Struct3 Int Double Char -> Property)
+    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Int Double Int Char -> Property)
+    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Int Int Double Char -> Property)
+    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Int Double Int Double -> Property)
+    , testProperty "Identity Struct4" (prop_idStruct4 :: Struct4 Double Int Char Char -> Property)
     ]
 
 instance ( Storable a, Arbitrary a
