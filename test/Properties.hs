@@ -1,12 +1,20 @@
 module Properties where
 
-import Test.QuickCheck
-import Test.QuickCheck.Monadic
+import Test.QuickCheck (Arbitrary, arbitrary)
+import Test.QuickCheck.Monadic (monadicIO, run, assert)
+import Test.Framework.Providers.API (testGroup)
+import Test.Framework.Providers.QuickCheck2 (testProperty)
 
 import Foreign.Storable (Storable, peek)
 import Foreign.Marshal.Utils (new)
 import Foreign.Marshal.Alloc (free)
 import Foreign.C.Structs (Struct2(..), Struct3(..), Struct4(..))
+
+tests = testGroup "Properties" [
+      testProperty prop_idStruct2
+    , testProperty prop_idStruct3
+    , testProperty prop_idStruct4
+    ]
 
 instance ( Storable a, Arbitrary a
          , Storable b, Arbitrary b
