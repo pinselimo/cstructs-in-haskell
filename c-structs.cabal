@@ -28,7 +28,7 @@ Library
 
 Test-Suite unit-tests
     type: exitcode-stdio-1.0
-    main-is: UnitTests.hs
+    main-is: Main.hs
     hs-source-dirs: test
     build-depends:
         base
