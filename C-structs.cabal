@@ -11,7 +11,6 @@ Description: Create correct C structs from Haskell!
 Maintainer: s.plakolb@gmail.com
 Category: Foreign
 Build-Type: Simple
-Default-Language: Haskell2010
 Tested-With: GHC==8.10.1, GHC==8.8.3, GHC==8.6.5, GHC==8.4.4, GHC==8.2.2, GHC==8.0.2, GHC==7.10.3, GHC==7.8.4, GHC==7.6.3, GHC==7.4.2, GHC==7.2.2, GHC==7.0.4
 
 Source-Repository head
@@ -24,6 +23,7 @@ Library
     Other-Modules:
         Foreign.C.Structs.Types,
         Foreign.C.Structs.Utils
+    Default-Language: Haskell2010
     Build-Depends:  base >= 3.0.0 && < 5.0.0
     HS-Source-Dirs: src
 
@@ -33,6 +33,7 @@ Test-Suite unit-tests
     Other-Modules:
         UnitTests,
         Properties
+    Default-Language: Haskell2010
     hs-source-dirs: test
     build-depends:
         C-structs,
@@ -44,10 +45,11 @@ Test-Suite unit-tests
         test-framework-quickcheck2 >= 0.2.8 && < 0.4
 
 Test-Suite doctest
-  type: exitcode-stdio-1.0
-  main-is: DocTest.hs
-  hs-source-dirs: test
-  build-depends:
-    base        >= 4.0 && < 5.0,
-    doctest     >= 0.10 && < 0.18,
-    Glob        >= 0.8 && < 0.11
+    type: exitcode-stdio-1.0
+    main-is: DocTest.hs
+    Default-Language: Haskell2010
+    hs-source-dirs: test
+    build-depends:
+        base        >= 4.0 && < 5.0,
+        doctest     >= 0.10 && < 0.18,
+        Glob        >= 0.8 && < 0.11
