@@ -7,10 +7,17 @@ Author: Simon Plakolb
 Copyright: (c) 2020 Simon Plakolb
 Homepage: https://github.com/pinselimo/cstructs-in-haskell
 Synopsis: C-Structs implementation for Haskell
-Description: Create correct C structs from Haskell!
+Description:
+    C-structs lets you create correct C structs in Haskell.
+    These can be used for FFI calls, import as well as exports.
+    This package is part of the development efforts for the Python
+    lib Hasky providing an interface to import Haskell modules.
+    .
+    Note: As of GHC 8.10 structs cannot be passed by value only by reference.
 Maintainer: s.plakolb@gmail.com
 Category: foreign, c, struct, structures, data
 Build-Type: Simple
+Extra-Source-Files: README.md, CHANGELOG.md
 Tested-With: GHC==8.10.1, GHC==8.8.3, GHC==8.6.5, GHC==8.4.4, GHC==8.2.2, GHC==8.0.2, GHC==7.10.3, GHC==7.8.4, GHC==7.6.3, GHC==7.4.2, GHC==7.2.2, GHC==7.0.4
 
 Source-Repository head
