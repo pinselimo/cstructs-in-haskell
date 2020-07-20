@@ -32,9 +32,13 @@ Test-Suite unit-tests
     main-is: Main.hs
     Other-Modules:
         UnitTests,
-        Properties
+        Properties,
+        CTest
     Default-Language: Haskell2010
     hs-source-dirs: test
+    include-dirs: test/libs
+    includes: c_test.h
+    c-sources: test/libs/c_test.c
     build-depends:
         C-structs,
         base         >= 3.0 && < 5.0,
