@@ -10,10 +10,10 @@ Synopsis: C-Structs implementation for Haskell
 Description:
     C-structs lets you create correct C structs in Haskell.
     These can be used for FFI calls, import as well as exports.
-    This package is part of the development efforts for the Python
-    lib Hasky providing an interface to import Haskell modules.
+    This package is part of the development efforts for the Python library
+    Hasky. Hasky provides an interface to import Haskell modules.
     .
-    Note: As of GHC 8.10 structs cannot be passed by value only by reference.
+    Note: As of GHC 8.10 structs cannot be passed by value, only by reference.
 Maintainer: s.plakolb@gmail.com
 Category: foreign, c, struct, structures, data
 Build-Type: Simple

@@ -1,6 +1,6 @@
 # C-Structs in Haskell
 
-This repository ispart of the development of [```Hasky```](https://github.com/pinselimo/Hasky/). It defines types for ```C``` ```struct```s in ```Haskell``` and their instance declarations as Storable.
+This repository is part of the development of [```Hasky```](https://github.com/pinselimo/Hasky/). It defines types for ```C``` ```struct```s in ```Haskell``` and their instance declarations as Storable.
 
 ## Usage
 
@@ -19,7 +19,7 @@ struct Struct2 {
     int s2snd;
 };
 
-s = Struct2;
+struct Struct2 s;
 s.s2fst = 1;
 s.s2snd = 2;
 ~~~
@@ -42,6 +42,7 @@ For a more elaborated usage example checkout [```Hasky```](https://github.com/pi
 [![Build](https://img.shields.io/travis/pinselimo/cstructs-in-haskell.svg)](https://travis-ci.org/pinselimo/cstructs-in-haskell)
 
 Identity properties are tested with QuickCheck to ensure that peek and poke are reversible. The result of ```sizeOf``` is dependent on the order of types. Its correctness can only be tested with HUnit. The ```alignment``` function is trivial and only tested implicitly through ```sizeOf```.
+Imports from C are tested in ```CTest.hs``` and form together with the identity tests the guarantee that also exports to C are consistent.
 All tests are performed for all available GHC versions through [haskell-ci](https://github.com/haskell-CI/haskell-ci) to ensure maximum compatibility.
 
 ## Contributing
