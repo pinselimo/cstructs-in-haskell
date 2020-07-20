@@ -11,7 +11,7 @@ It also defined them as instances of the Storable type-class. You can thus creat
 to an instance of such a struct and interface with another language.
 
 Currently up to four records are supported. Each number of records needs its own type.
-The types are named after the number of records they support: @Struct2@, @Struct3@, @Struct4@.
+The types are named after the number of records they support: 'Struct2', 'Struct3', 'Struct4'.
 If you'd like to request a type with more records, feel free to issue a PR or contact the maintainer.
 -}
 module Foreign.C.Structs (
