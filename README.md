@@ -11,6 +11,20 @@ You can use these types as a classic ```hackage``` package. It has no other depe
 λ> s = Struct2 1 2 :: Struct2 Int Int
 ~~~
 
+can be interpreted as an equivalent to:
+
+~~~C
+struct Struct2 {
+    int s2dst;
+    int s2snd;
+};
+
+s = Struct2;
+s.s2fst = 1;
+s.s2snd = 2;
+~~~
+
+On memory these two examples should have the exact same representation. A pointer to either ```s``` can then be exchanged with the other and used in a ```foreign``` call.
 For a more elaborated usage example checkout [```Hasky```](https://github.com/pinselimo/Hasky/hasky/haskell/res/HaskyTuple.hs/). It uses ```Foreign.C.Structs``` to declare its storage functions for ```Haskell``` tuples.
 
 ## Testing
