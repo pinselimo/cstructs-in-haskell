@@ -11,6 +11,11 @@ struct StructIntInt {
     int s2snd;
 };
 
+struct StructDoubleFloat {
+    double s2fst;
+    float  s2snd;
+};
+
 struct StructIntCharDouble {
     int s3fst;
     char s3snd;
@@ -46,6 +51,7 @@ struct StructDoubleIntCharChar {
 
 struct StructIntDouble *sIntDouble(void);
 struct StructIntInt *sIntInt(void);
+struct StructDoubleFloat *sDoubleFloat(void);
 struct StructIntCharDouble *sIntCharDouble(void);
 struct StructIntDoubleChar *sIntDoubleChar(void);
 struct StructIntCharDoubleDouble *sIntCharDoubleDouble(void);

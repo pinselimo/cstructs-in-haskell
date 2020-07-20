@@ -17,6 +17,14 @@ struct StructIntInt *sIntInt(void) {
     return s;
 }
 
+struct StructDoubleFloat *sDoubleFloat(void) {
+    struct StructDoubleFloat *s;
+    s = malloc(sizeof(struct StructDoubleFloat));
+    s->s2fst = 63.63;
+    s->s2snd = 42.42;
+    return s;
+}
+
 struct StructIntCharDouble *sIntCharDouble(void) {
     struct StructIntCharDouble *s;
     s = malloc(sizeof(struct StructIntCharDouble));
