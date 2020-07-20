@@ -3,12 +3,17 @@ module Foreign.C.Structs.Types (
 ) where
 
 import Foreign.Storable (Storable, peek, poke, alignment, sizeOf)
-import Foreign.Ptr (castPtr)
+import Foreign.Ptr (Ptr, castPtr)
 
 import Foreign.C.Structs.Utils
 
-data Struct2 a b = Struct2
-    { s2fst :: a
+-- | A 'Struct2' can hold two records of any 'Storable' types @a@ and @b@.
+-- It is itself an instance.
+-- The Constructor 'Struct2' for structs with two fields takes two arguments. Both must be instances of 'Storable' and can be used inside a 'Ptr'.
+data Struct2 a b = Struct2 {
+      -- | Accesses the first field of a 'Struct2'
+      s2fst :: a
+      -- | Accesses the second field of a 'Struct2'
     , s2snd :: b
     } deriving (Show, Eq)
 
@@ -30,9 +35,15 @@ instance (Storable a, Storable b) => Storable (Struct2 a b) where
         ptr_b <- next ptr a
         poke ptr_b b
 
-data Struct3 a b c = Struct3
-    { s3fst :: a
+-- | A 'Struct3' can hold three records of any 'Storable' types @a@, @b@ and @c@.
+-- It is itself an instance.
+-- The constructor 'Struct3' for structs with three fields takes three arguments. All of which must be instances of 'Storable' and can be used inside a 'Ptr'.
+data Struct3 a b c = Struct3 {
+      -- | Accesses the first field of a 'Struct3'
+      s3fst :: a
+      -- | Accesses the second field of a 'Struct3'
     , s3snd :: b
+      -- | Accesses the third field of a 'Struct3'
     , s3trd :: c
     } deriving (Show, Eq)
 
@@ -71,10 +82,17 @@ instance (Storable a, Storable b, Storable c) => Storable (Struct3 a b c) where
         ptr_c <- next ptr_b b
         poke ptr_c c
 
-data Struct4 a b c d = Struct4
-    { s4fst :: a
+-- | A 'Struct4' can hold four records of any 'Storable' types @a@, @b@, @c@ and @d@.
+-- It is itself an instance of 'Storable' and can be used inside a 'Ptr'.
+-- The 'Struct4' constructor takes four arguments. All must be instances of 'Storable'.
+data Struct4 a b c d = Struct4 {
+    -- | Accesses the first field of a 'Struct4'
+      s4fst :: a
+    -- | Accesses the second field of a 'Struct4'
     , s4snd :: b
+    -- | Accesses the third field of a 'Struct4'
     , s4trd :: c
+    -- | Accesses the fourth field of a 'Struct4'
     , s4fth :: d
     } deriving (Show, Eq)
 
