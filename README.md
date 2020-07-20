@@ -15,7 +15,7 @@ can be interpreted as an equivalent to:
 
 ~~~C
 struct Struct2 {
-    int s2dst;
+    int s2fst;
     int s2snd;
 };
 
