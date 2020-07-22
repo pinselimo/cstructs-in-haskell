@@ -1,4 +1,4 @@
-# C-Structs in Haskell
+# C-Structs in Haskell [![Build](https://secure.travis-ci.org/pinselimo/cstructs-in-haskell.svg)](https://travis-ci.org/pinselimo/cstructs-in-haskell) [![Hackage CI](https://matrix.hackage.haskell.org/api/v2/packages/C-structs/badge)](https://matrix.hackage.haskell.org/package/C-structs) [![Hackage Version](https://img.shields.io/hackage/v/C-structs.svg?label=Hackage)](http://hackage.haskell.org/package/C-structs) [![Dependencies of latest version on Hackage](https://img.shields.io/hackage-deps/v/C-structs.svg)](https://hackage.haskell.org/package/C-structs)
 
 C-structs lets you create dynamically typed and correctly padded C structs in Haskell.
 These can be used for FFI calls, imports and exports.
@@ -7,10 +7,6 @@ Hasky provides an interface to import Haskell modules.
 
 Note: As of GHC 8.10 structs cannot be passed by value, [only by reference](https://wiki.haskell.org/Foreign_Function_Interface#Foreign_types).
 
-[![Build](https://secure.travis-ci.org/pinselimo/cstructs-in-haskell.svg)](https://travis-ci.org/pinselimo/cstructs-in-haskell)
-[![Hackage CI](https://matrix.hackage.haskell.org/api/v2/packages/C-structs/badge)](https://matrix.hackage.haskell.org/package/C-structs)
-[![Hackage Version](https://img.shields.io/hackage/v/C-structs.svg?label=Hackage)](http://hackage.haskell.org/package/C-structs)
-[![Dependencies of latest version on Hackage](https://img.shields.io/hackage-deps/v/C-structs.svg)](https://hackage.haskell.org/package/C-structs)
 
 ## Usage
 
