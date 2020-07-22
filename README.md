@@ -2,8 +2,8 @@
 
 C-structs lets you create dynamically typed and correctly padded C structs in Haskell.
 These can be used for FFI calls, imports and exports.
-This package is part of the development efforts for the Python library [```Hasky```](https://github.com/pinselimo/Hasky/).
-Hasky provides an interface to import Haskell modules.
+This package is part of the development efforts for the Python library [```Pythas```](https://github.com/pinselimo/Pythas/).
+Pythas provides an interface to import Haskell modules.
 
 Note: As of GHC 8.10 structs cannot be passed by value, [only by reference](https://wiki.haskell.org/Foreign_Function_Interface#Foreign_types).
 
@@ -81,7 +81,7 @@ main = do
     putStrLn $ show s
 ~~~
 
-For a more elaborated usage examples checkout [```Hasky```](https://github.com/pinselimo/Hasky) in conjunction with [```Hasky-Types```](https://github.com/pinselimo/Hasky-Types).
+For a more elaborated usage examples checkout [```Pythas```](https://github.com/pinselimo/Pythas) in conjunction with [```Pythas-Types```](https://github.com/pinselimo/Pythas-Types).
 It uses ```Foreign.C.Structs``` to declare its storage functions for ```Haskell``` tuples. In addition, its Array and Linked List instances are based on this library.
 
 ## Testing
@@ -99,4 +99,5 @@ Currently only structs with up to four fields are supported. If your use case de
 
 ## License
 
-This part of Hasky is licensed under the ```MIT``` License. Please be aware that the full ```Hasky``` package is under ```LGPLv3```. Refer to the accompanying LICENSE or COPYING files for details.
+This part of Pythas is licensed under the ```MIT``` License. Please be aware that the full ```Pythas``` package is under ```LGPLv3```. Refer to the accompanying LICENSE or COPYING files for details.
+
