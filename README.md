@@ -53,10 +53,10 @@ The following shows an example of a foreign import of a ```struct Struct2``` as 
 ~~~C
 struct Struct2 *foo (void) {
     struct Struct2 *val;
-    val = malloc (sizeof (struct Struct2))
+    val = malloc (sizeof (struct Struct2));
     val->s2fst = 42;
     val->s2snd = 63;
-    return val
+    return val;
 }
 ~~~
 
