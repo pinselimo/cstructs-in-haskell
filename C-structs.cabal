@@ -37,10 +37,14 @@ Library
 Test-Suite unit-tests
     type: exitcode-stdio-1.0
     main-is: Main.hs
+    Other-Extensions:
+        ForeignFunctionInterface
+        TemplateHaskell
     Other-Modules:
         UnitTests,
         Properties,
-        CTest
+        CTest,
+        CTestTemplate
     Default-Language: Haskell2010
     hs-source-dirs: test
     include-dirs: test/libs
@@ -51,7 +55,9 @@ Test-Suite unit-tests
         base         >= 3.0 && < 5.0,
         HUnit        >= 1.2 && < 1.7,
         QuickCheck   >= 2.3 && < 2.15,
+        template-haskell >= 2.2 && < 2.16,
         test-framework  >= 0.4.1 && < 0.9,
+        test-framework-th >= 0.1.2 && < 0.3,
         test-framework-hunit >= 0.2.6 && < 0.4,
         test-framework-quickcheck2 >= 0.2.8 && < 0.4
 
