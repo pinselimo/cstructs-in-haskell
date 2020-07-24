@@ -48,16 +48,13 @@ data Struct3 a b c = Struct3 {
     } deriving (Show, Eq)
 
 s3Size :: (Storable a, Storable b, Storable c) => Struct3 a b c -> Int
-s3Size cs
-    |  sum_bc <= amax = 2 * amax
-    |  sum_ab <= amax = 2 * amax
-    |  otherwise      = 3 * amax
-    where amax = s3Alignment cs
-          size_a  = sizeOf $ s3fst cs
-          size_b  = sizeOf $ s3snd cs
-          size_c  = sizeOf $ s3trd cs
-          sum_ab  = size_a + size_b
-          sum_bc  = size_b + size_c
+s3Size cs = sizeof [aa,ab,ac] [sa, sb, sc]
+    where sa = sizeOf $ s3fst cs
+          sb = sizeOf $ s3snd cs
+          sc = sizeOf $ s3trd cs
+          aa = alignment $ s3fst cs
+          ab = alignment $ s3snd cs
+          ac = alignment $ s3trd cs
 
 s3Alignment :: (Storable a, Storable b, Storable c) => Struct3 a b c -> Int
 s3Alignment cs = fmax [a,b,c]
@@ -97,25 +94,15 @@ data Struct4 a b c d = Struct4 {
     } deriving (Show, Eq)
 
 s4Size :: (Storable a, Storable b, Storable c, Storable d) => Struct4 a b c d -> Int
-s4Size cs
-    |  sum_abc <= amax
-    || sum_bcd <= amax = 2 * amax
-    |  sum_ab  <= amax
-    && size_d  <= amax = 3 * amax
-    |  size_a  <= amax
-    && sum_cd  <= amax = 3 * amax
-    |  sum_bc  <= amax = 3 * amax
-    |  otherwise       = 4 * amax
-    where amax    = s4Alignment cs
-          size_a  = sizeOf $ s4fst cs
-          size_b  = sizeOf $ s4snd cs
-          size_c  = sizeOf $ s4trd cs
-          size_d  = sizeOf $ s4fth cs
-          sum_ab  = size_a + size_b
-          sum_bc  = size_b + size_c
-          sum_cd  = size_c + size_d
-          sum_abc = sum_ab + size_c
-          sum_bcd = size_b + sum_cd
+s4Size cs = sizeof [aa,ab,ac,ad] [sa,sb,sc,sd]
+    where sa = sizeOf $ s4fst cs
+          sb = sizeOf $ s4snd cs
+          sc = sizeOf $ s4trd cs
+          sd = sizeOf $ s4fth cs
+          aa = alignment $ s4fst cs
+          ab = alignment $ s4snd cs
+          ac = alignment $ s4trd cs
+          ad = alignment $ s4fth cs
 
 s4Alignment :: (Storable a, Storable b, Storable c, Storable d) => Struct4 a b c d -> Int
 s4Alignment cs = fmax [a, b, c, d]
