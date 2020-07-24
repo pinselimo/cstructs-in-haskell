@@ -60,7 +60,7 @@ charCharCharChar = Struct4 1 1 1 1 :: Struct4 CChar CChar CChar CChar
 
 sizeOfStruct4 = testGroup "sizeOfStruct4" [
       testCase "intIntDoubleChar" $ 24 @=? sizeOf intIntDoubleChar
-    , testCase "charIntCharDouble" $ 16 @=? sizeOf charIntCharDouble
+    , testCase "charIntCharDouble" $ 24 @=? sizeOf charIntCharDouble
     , testCase "intDoubleIntChar" $ 24 @=? sizeOf intDoubleIntChar
     , testCase "doubleDoubleCharInt" $ 24 @=? sizeOf doubleDoubleCharInt
     , testCase "charIntDoubleChar" $ 24 @=? sizeOf charIntDoubleChar
