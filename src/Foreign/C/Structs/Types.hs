@@ -12,4 +12,6 @@ import Foreign.C.Structs.Templates (structT)
 structT 2
 structT 3
 structT 4
+structT 5
+structT 6
 
