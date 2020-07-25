@@ -1,4 +1,14 @@
 {-# LANGUAGE TemplateHaskell #-}
+{- |
+Module          : Foreign.C.Structs.Templates
+Description     : Create C structs from Haskell
+Copyright       : (c) Simon Plakolb, 2020
+License         : MIT
+Maintainer      : s.plakolb@gmail.com
+Stability       : beta
+
+This module exposes the template haskell framework to create Struct types.
+-}
 module Foreign.C.Structs.Templates
     (structT)
 where
