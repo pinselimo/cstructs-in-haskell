@@ -102,8 +102,8 @@ fieldnames :: String -> [Name]
 fieldnames s = map (mkName . (:s)) ['a'..'z']
 getters    :: Int -> [Name]
 getters n = map (mkName . (("s" ++ show n) ++))
-          $  ["fst","snd","trd","fth","fif","sxt","sth","egt","nth"]
-          ++ [show n ++ "th" | n <- [10..]]
+          $  ["1st","2nd","3rd"]
+          ++ [show n ++ "th" | n <- [4..]]
 
 vals f n s = take n $ zipWith val (fieldnames s) (getters n)
     where val v getter = ValD (VarP v) (NormalB $ body getter) []
