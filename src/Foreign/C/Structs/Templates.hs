@@ -30,7 +30,7 @@ structT = return . zipWith ($) [structTypeT, storableInstanceT] . repeat
 
 structTypeT :: Int -> Dec
 #if __GLASGOW_HASKELL__ < 800
-structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] deriv''
+structTypeT nfields = DataD [] (sTypeN nfields) tyVars [constructor] deriv''
 #elif __GLASGOW_HASKELL__ < 802
 structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] deriv'
 #else
@@ -51,7 +51,11 @@ structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] [de
 #endif
 
 storableInstanceT :: Int -> Dec
+#if __GLASGOW_HASKELL__ < 800
+storableInstanceT nfields = InstanceD cxt tp decs
+#else
 storableInstanceT nfields = InstanceD Nothing cxt tp decs
+#endif
     where vars = take nfields $ fieldnames ""
           storable = AppT $ ConT ''Storable
 
