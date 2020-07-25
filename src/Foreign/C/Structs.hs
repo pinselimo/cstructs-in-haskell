@@ -15,14 +15,37 @@ The types are named after the number of records they support: 'Struct2', 'Struct
 If you'd like to request a type with more records, feel free to issue a PR or contact the maintainer.
 -}
 module Foreign.C.Structs (
-      Struct2( Struct2, s2fst, s2snd)
-    , Struct3( Struct3, s3fst, s3snd, s3trd)
-    , Struct4( Struct4, s4fst, s4snd, s4trd, s4fth)
+      Struct2(..)
+    , Struct3(..)
+    , Struct4(..)
+    , Struct5(..)
+    , Struct6(..)
+    , StructT
+    -- Exports for Template Haskell usage
+    , next, sizeof, fmax
+    -- Reexports for Template Haskell
+    , Storable, peek, poke, sizeOf, alignment, castPtr
     ) where
 
 import Foreign.C.Structs.Types (
      Struct2(..)
     ,Struct3(..)
     ,Struct4(..)
+    )
+
+import Foreign.C.Structs.Template (
+     StructT
+    )
+
+import Foreign.Storable (
+     Storable, peek, poke, sizeOf, alignment
+    )
+import Foreign.Ptr (
+     castPtr
+    )
+import Foreign.C.Structs.Utils (
+     next
+    ,sizeof
+    ,fmax
     )
 
