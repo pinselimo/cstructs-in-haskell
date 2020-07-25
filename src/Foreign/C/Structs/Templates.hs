@@ -58,8 +58,11 @@ storableInstanceT nfields = InstanceD Nothing cxt tp decs
 #endif
     where vars = take nfields $ fieldnames ""
           storable = AppT $ ConT ''Storable
-
+#if __GLASGOW_HASKELL__ < 710
+          cxt  = map (\v -> ClassP ''Storable [VarT v]) vars
+#else
           cxt  = map (storable . VarT) vars
+#endif
           tp   = storable $ foldl AppT (ConT $ sTypeN nfields) $ map VarT vars
 
           decs = [ sizeOfT nfields
