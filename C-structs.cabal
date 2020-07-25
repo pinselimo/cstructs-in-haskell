@@ -11,11 +11,11 @@ Description:
     C-structs lets you create correct C structs in Haskell.
     These can be used for FFI calls, import as well as exports.
     This package is part of the development efforts for the Python library
-    Hasky. Hasky provides an interface to import Haskell modules.
+    Pythas. Pythas provides an interface to import Haskell modules.
     .
     Note: As of GHC 8.10 structs cannot be passed by value, only by reference.
 Maintainer: s.plakolb@gmail.com
-Category: foreign, c, struct, structures, data
+Category: foreign, c, structures, data
 Build-Type: Simple
 Extra-Source-Files: README.md, CHANGELOG.md, test/libs/c_test.c, test/libs/c_test.h
 Tested-With: GHC==8.10.1, GHC==8.8.3, GHC==8.6.5, GHC==8.4.4, GHC==8.2.2, GHC==8.0.2, GHC==7.10.3, GHC==7.8.4, GHC==7.6.3, GHC==7.4.2, GHC==7.2.2, GHC==7.0.4
@@ -52,7 +52,7 @@ Test-Suite unit-tests
         HUnit        >= 1.2 && < 1.7,
         QuickCheck   >= 2.3 && < 2.15,
         test-framework  >= 0.4.1 && < 0.9,
-        test-framework-hunit >= 0.2.8 && < 0.4,
+        test-framework-hunit >= 0.2.6 && < 0.4,
         test-framework-quickcheck2 >= 0.2.8 && < 0.4
 
 Test-Suite doctest
@@ -62,5 +62,5 @@ Test-Suite doctest
     hs-source-dirs: test
     build-depends:
         base        >= 4.0 && < 5.0,
-        doctest     >= 0.10 && < 0.18,
-        Glob        >= 0.8 && < 0.11
+        doctest     >= 0.3 && < 0.18,
+        Glob        >= 0.1 && < 0.11
