@@ -33,6 +33,7 @@ Library
         Foreign.C.Structs.Utils
     Other-Extensions:
         TemplateHaskell
+        CPP
     Default-Language: Haskell2010
     Build-Depends:
         base >= 3.0.0 && < 5.0.0,
