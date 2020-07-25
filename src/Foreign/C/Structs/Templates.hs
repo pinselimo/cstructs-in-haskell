@@ -46,7 +46,9 @@ structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] [de
 #endif
           deriv'' = [''Show, ''Eq]
           deriv' = map ConT deriv''
+#if __GLASGOW_HASKELL__ > 800
           deriv = DerivClause Nothing deriv'
+#endif
 
 storableInstanceT :: Int -> Dec
 storableInstanceT nfields = InstanceD Nothing cxt tp decs
