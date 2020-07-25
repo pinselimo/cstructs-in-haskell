@@ -20,7 +20,7 @@ module Foreign.C.Structs (
     , Struct4(..)
     , Struct5(..)
     , Struct6(..)
-    , StructT
+    , structT
     -- Exports for Template Haskell usage
     , next, sizeof, fmax
     -- Reexports for Template Haskell
@@ -31,10 +31,12 @@ import Foreign.C.Structs.Types (
      Struct2(..)
     ,Struct3(..)
     ,Struct4(..)
+    ,Struct5(..)
+    ,Struct6(..)
     )
 
-import Foreign.C.Structs.Template (
-     StructT
+import Foreign.C.Structs.Templates (
+     structT
     )
 
 import Foreign.Storable (

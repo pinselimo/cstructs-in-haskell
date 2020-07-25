@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 module Foreign.C.Structs.Types (
-    Struct2(..), Struct3(..), Struct4(..)
+    Struct2(..), Struct3(..), Struct4(..), Struct5(..), Struct6(..)
 ) where
 
 import Foreign.Storable (Storable, peek, poke, alignment, sizeOf)
