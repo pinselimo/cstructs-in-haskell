@@ -17,7 +17,7 @@ structT = return . zipWith ($) [structTypeT, storableInstanceT] . repeat
 structTypeT :: Int -> Dec
 structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] [deriv]
     where tyVars    = map PlainTV $ take nfields $ fieldnames ""
-          constructor = RecC (sTypeN nfields) $ take nfields $ records
+          constructor = RecC (sTypeN nfields) $ take nfields records
           records     = zipWith defRec (getters nfields) (fieldnames "")
           defRec n t  = (,,) n (Bang NoSourceUnpackedness NoSourceStrictness) (VarT t)
           deriv = DerivClause Nothing [ConT ''Show, ConT ''Eq]
@@ -60,13 +60,13 @@ peekT nfields = FunD 'peek [clause]
           clause = Clause [VarP ptr] (NormalB body) []
 
           body = DoE $ initial ++ concat gotos ++ final
-          initial = [ BindS (VarP $ head vars) (AppE (VarE 'peek) cast_ptr)
+          initial = [ BindS (VarP $ head vars) (AppE (VarE 'peek) castPtr')
                     , BindS (VarP $ head ptrs) (AppE (AppE (VarE 'next) $ VarE ptr) $ VarE $ head vars)
                   ]
-          gotos = zipWith3 goto (tail vars) (ptrs) (tail ptrs)
-          goto n p next_p = [bind_var p n, bind_ptr next_p p (VarE n)]
+          gotos = zipWith3 goto (tail vars) ptrs (tail ptrs)
+          goto n p next_p = [bindVar' p n, bindPtr' next_p p (VarE n)]
 
-          final = [ bind_var (last ptrs) (last vars)
+          final = [ bindVar' (last ptrs) (last vars)
                   , NoBindS $ AppE (VarE 'return) $ foldl AppE (ConE (sTypeN nfields)) (map VarE vars)
                 ]
 
@@ -82,21 +82,21 @@ pokeT nfields = FunD 'poke [clause]
 
           init_poke = NoBindS
                     $ AppE cast_poke_ptr (VarE $ head vars)
-                    where  cast_poke_ptr = AppE (VarE 'poke) cast_ptr
-          init_next = bind_ptr (head ptrs) ptr (VarE $ head vars)
+                    where  cast_poke_ptr = AppE (VarE 'poke) castPtr'
+          init_next = bindPtr' (head ptrs) ptr (VarE $ head vars)
 
-          gotos = zipWith3 goto (tail vars) (ptrs) $ tail ptrs
-          goto n p next_p = [poke_var p var, bind_ptr next_p p var]
+          gotos = zipWith3 goto (tail vars) ptrs $ tail ptrs
+          goto n p next_p = [pokeVar' p var, bindPtr' next_p p var]
                 where var = VarE n
 
-          final = poke_var (last ptrs) (VarE $ last vars)
+          final = pokeVar' (last ptrs) (VarE $ last vars)
 
 -- Helpers and Constants
 
 sTypeN n = mkName ("Struct" ++ show n)
 struct   = mkName "struct"
 ptr      = mkName "ptr"
-cast_ptr = AppE (VarE 'castPtr) (VarE ptr)
+castPtr' = AppE (VarE 'castPtr) (VarE ptr)
 
 fieldnames :: String -> [Name]
 fieldnames s = map (mkName . (:s)) ['a'..'z']
@@ -109,10 +109,10 @@ vals f n s = take n $ zipWith val (fieldnames s) (getters n)
     where val v getter = ValD (VarP v) (NormalB $ body getter) []
           body getter  = AppE (VarE f) $ AppE (VarE getter) $ VarE struct
 
-bind_var ptr var = BindS (VarP var) (AppE (VarE 'peek) $ VarE ptr)
-poke_var ptr var = NoBindS
+bindVar' ptr var = BindS (VarP var) (AppE (VarE 'peek) $ VarE ptr)
+pokeVar' ptr var = NoBindS
        $ AppE (AppE (VarE 'poke) $ VarE ptr) var
-bind_ptr np pp var = BindS (VarP np)
+bindPtr' np pp var = BindS (VarP np)
        $ AppE next_ptr var
        where next_ptr = AppE (VarE 'next) $ VarE pp
 
