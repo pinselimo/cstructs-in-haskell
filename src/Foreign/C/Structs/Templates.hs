@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell, CPP #-}
 {- |
 Module          : Foreign.C.Structs.Templates
 Description     : Create C structs from Haskell
@@ -14,6 +14,7 @@ module Foreign.C.Structs.Templates
 where
 
 import Language.Haskell.TH
+import Language.Haskell.TH.Lib (DerivClause)
 
 import Foreign.Storable (Storable, peek, poke, sizeOf, alignment)
 import Foreign.Ptr (castPtr)
@@ -29,12 +30,24 @@ structT = return . zipWith ($) [structTypeT, storableInstanceT] . repeat
 -- Templating functions
 
 structTypeT :: Int -> Dec
+#if __GLASGOW_HASKELL__ < 800
+structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] deriv''
+#elif __GLASGOW_HASKELL__ < 802
+structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] deriv'
+#else
 structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] [deriv]
+#endif
     where tyVars    = map PlainTV $ take nfields $ fieldnames ""
           constructor = RecC (sTypeN nfields) $ take nfields records
           records     = zipWith defRec (getters nfields) (fieldnames "")
+#if __GLASGOW_HASKELL__ < 800
+          defRec n t  = (,,) n NotStrict (VarT t)
+#else
           defRec n t  = (,,) n (Bang NoSourceUnpackedness NoSourceStrictness) (VarT t)
-          deriv = DerivClause Nothing [ConT ''Show, ConT ''Eq]
+#endif
+          deriv'' = [''Show, ''Eq]
+          deriv' = map ConT deriv''
+          deriv = DerivClause Nothing deriv'
 
 storableInstanceT :: Int -> Dec
 storableInstanceT nfields = InstanceD Nothing cxt tp decs
