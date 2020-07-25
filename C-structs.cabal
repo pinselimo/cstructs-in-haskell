@@ -29,9 +29,15 @@ Library
         Foreign.C.Structs
     Other-Modules:
         Foreign.C.Structs.Types,
+        Foreign.C.Structs.Templates,
         Foreign.C.Structs.Utils
+    Other-Extensions:
+        TemplateHaskell
+    GHC-Options: -ddump-splices
     Default-Language: Haskell2010
-    Build-Depends:  base >= 3.0.0 && < 5.0.0
+    Build-Depends:
+        base >= 3.0.0 && < 5.0.0,
+        template-haskell >= 2.2 && < 2.16
     HS-Source-Dirs: src
 
 Test-Suite unit-tests

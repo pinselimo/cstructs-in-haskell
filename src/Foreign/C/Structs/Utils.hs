@@ -29,3 +29,4 @@ next ptr x = alloca $ next' ptr x
 
 fmax :: Integral a => [a] -> a
 fmax = foldr max 0
+
