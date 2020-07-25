@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell, CPP #-}
 module CTestTemplate where
 
 import Language.Haskell.TH
@@ -16,7 +16,11 @@ peek' ptr = do
 
 c :: String -> Name -> DecsQ
 c cname res = do
-    VarI n t d <- reify res
+#if __GLASGOW_HASKELL__ < 800
+    VarI n t _ _ <- reify res
+#else
+    VarI n t _ <- reify res
+#endif
     typ <- ptr $ return t
     let name = mkName cname
         deq  = ForeignD $ ImportF CCall Safe cname name typ

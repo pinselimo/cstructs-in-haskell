@@ -46,6 +46,7 @@ Test-Suite unit-tests
     Other-Extensions:
         ForeignFunctionInterface
         TemplateHaskell
+        CPP
     Other-Modules:
         UnitTests,
         Properties,
