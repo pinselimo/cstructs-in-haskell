@@ -14,7 +14,6 @@ module Foreign.C.Structs.Templates
 where
 
 import Language.Haskell.TH
-import Language.Haskell.TH.Lib (DerivClause)
 
 import Foreign.Storable (Storable, peek, poke, sizeOf, alignment)
 import Foreign.Ptr (castPtr)
