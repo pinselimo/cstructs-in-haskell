@@ -9,6 +9,10 @@ import Foreign.Storable (Storable, peek, poke, sizeOf, alignment)
 import Foreign.Ptr (castPtr)
 import Foreign.C.Structs.Utils (next, sizeof, fmax)
 
+-- | All @StructN@ types and their instances of 'Storable' are declared using 'structT'.
+-- It can theoretically create C structs with an infinite number of fields.
+-- The parameter of 'structT' is the number of fields the struct type should have.
+-- Its constructor and type will both be named @StructN@ where N is equal to the argument to 'structT'.
 structT :: Int -> DecsQ
 structT = return . zipWith ($) [structTypeT, storableInstanceT] . repeat
 
