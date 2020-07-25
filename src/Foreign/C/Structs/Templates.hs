@@ -10,7 +10,7 @@ Stability       : beta
 This module exposes the template haskell framework to create Struct types.
 -}
 module Foreign.C.Structs.Templates
-    (structT)
+    (structT, acs)
 where
 
 import Language.Haskell.TH
@@ -25,6 +25,22 @@ import Foreign.C.Structs.Utils (next, sizeof, fmax)
 -- Its constructor and type will both be named @StructN@ where N is equal to the argument to 'structT'.
 structT :: Int -> DecsQ
 structT = return . zipWith ($) [structTypeT, storableInstanceT] . repeat
+
+-- | Access function for fields of a @StructN@ where @N@ is the number of fields in the struct.
+-- N is the first argument passed to 'acs', while the second is the field number.
+-- The first field has number 1, the second 2 and so on.
+--
+-- > s = Struct4 1 2 3 4
+-- > $(acs 4 3) s
+--
+acs :: Int -> Int -> ExpQ
+acs big_n small_n = [| \struct -> $(caseE [| struct |] [m]) |]
+    where m :: MatchQ
+          m = match pat (normalB $ varE $ vrs !! (small_n-1)) []
+          pat :: PatQ
+          pat = conP str $ map varP $ take big_n vrs
+          str = mkName $ "Struct" ++ show big_n
+          vrs = fieldnames ""
 
 -- Templating functions
 
