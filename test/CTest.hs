@@ -2,7 +2,7 @@
 module CTest where
 
 import Test.Framework.Providers.API (testGroup)
-import CTestTemplate
+import Templates
 
 import Foreign.C.Types
 import Foreign.C.Structs
