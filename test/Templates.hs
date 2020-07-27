@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskell, CPP #-}
-module CTestTemplate where
+module Templates where
 
 import Language.Haskell.TH
 import Language.Haskell.TH.Syntax (Lift)
@@ -35,8 +35,4 @@ to_struct_type ts = [t| Ptr $(mk_struct) |]
     where struct = conT (mkName $ "Struct" ++ (show $ length ts))
           mk_struct :: TypeQ
           mk_struct = foldr appT struct ts
-
-
-cint = conT (mkName "Struct CInt CInt")
-cdouble = conT (mkName "CDouble")
 

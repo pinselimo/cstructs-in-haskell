@@ -51,7 +51,7 @@ Test-Suite unit-tests
         UnitTests,
         Properties,
         CTest,
-        CTestTemplate
+        Templates
     Default-Language: Haskell2010
     hs-source-dirs: test
     include-dirs: test/libs
