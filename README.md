@@ -24,13 +24,13 @@ can be interpreted as an equivalent to:
 
 ~~~C
 struct Struct2 {
-    int s2fst;
-    int s2snd;
+    int s21st;
+    int s22nd;
 };
 
 struct Struct2 s;
-s.s2fst = 1;
-s.s2snd = 2;
+s.s21st = 1;
+s.s22nd = 2;
 ~~~
 
 or with Python's ```ctypes```:
@@ -38,7 +38,7 @@ or with Python's ```ctypes```:
 ~~~python
 >>> from ctypes import Structure, c_int
 >>> class Struct2( Structure ):
-...     _fields_ = [("s2fst", c_int), ("s2snd", c_int)]
+...     _fields_ = [("s21st", c_int), ("s22nd", c_int)]
 ...
 >>> s = Struct2(1,2)
 ~~~
@@ -54,8 +54,8 @@ The following shows an example of a foreign import of a ```struct Struct2``` as 
 struct Struct2 *foo (void) {
     struct Struct2 *val;
     val = malloc (sizeof (struct Struct2));
-    val->s2fst = 42;
-    val->s2snd = 63;
+    val->s21st = 42;
+    val->s22nd = 63;
     return val;
 }
 ~~~
@@ -84,6 +84,29 @@ main = do
 For a more elaborated usage examples checkout [```Pythas```](https://github.com/pinselimo/Pythas) in conjunction with [```Pythas-Types```](https://github.com/pinselimo/Pythas-Types).
 It uses ```Foreign.C.Structs``` to declare its storage functions for ```Haskell``` tuples. In addition, its Array and Linked List instances are based on this library.
 
+### More fields
+
+Currently ```C-structs``` exports types featuring up to six fields. If you require more, you can easily create them using Template Haskell and the ```structT``` function:
+
+~~~haskell
+structT 8
+~~~
+
+will create:
+
+~~~haskell
+data Struct8 = Struct8
+    { s81st :: a
+    , s82nd :: b
+    , s83rd :: c
+    , s84th :: d
+    , s85th :: e
+    ...
+    } deriving (Show, Eq)
+
+instance Storable Struct8 ...
+~~~
+
 ## Testing
 
 Identity properties are tested with QuickCheck to ensure that peek and poke are reversible.
@@ -92,10 +115,6 @@ The ```alignment``` function is trivial and only tested implicitly through ```si
 
 Imports from C are tested in ```CTest.hs``` and together with the identity tests form the guarantee that also exports to C are consistent.
 All tests are performed for all available GHC versions through [haskell-ci](https://github.com/haskell-CI/haskell-ci) to ensure maximum compatibility.
-
-## Contributing
-
-Currently only structs with up to four fields are supported. If your use case demands more, feel free to contribute or raise an issue on GitHub. Due to the individuality of the ```sizeOf``` function, an implementation in Template Haskell currently doesn't seem feasible. Thus, instances have to be written one by one.
 
 ## License
 

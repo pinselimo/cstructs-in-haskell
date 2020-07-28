@@ -1,37 +1,41 @@
-{-# LANGUAGE ForeignFunctionInterface #-}
+{-# LANGUAGE ForeignFunctionInterface, TemplateHaskell #-}
 module CTest where
 
 import Test.Framework.Providers.API (testGroup)
-import Test.Framework.Providers.HUnit (testCase)
-import Test.HUnit ((@?=))
+import Templates
 
 import Foreign.C.Types
 import Foreign.C.Structs
-import Foreign.Ptr
-import Foreign.Storable
-import Foreign.Marshal.Alloc
 
-peek' ptr = do
-      val <- peek ptr
-      free ptr
-      return val
+i = 63 :: CInt
+d = 63.63 :: CDouble
+f = 42.42 :: CFloat
+ch = 1 :: CChar
 
-foreign import ccall "sIntDouble" sIntDouble :: Ptr (Struct2 CInt CDouble)
-foreign import ccall "sIntInt" sIntInt :: Ptr (Struct2 CInt CInt)
-foreign import ccall "sDoubleFloat" sDoubleFloat :: Ptr (Struct2 CDouble CFloat)
-foreign import ccall "sIntCharDouble" sIntCharDouble :: Ptr (Struct3 CInt CChar CDouble)
-foreign import ccall "sIntDoubleChar" sIntDoubleChar :: Ptr (Struct3 CInt CDouble CChar)
-foreign import ccall "sIntCharDoubleDouble" sIntCharDoubleDouble :: Ptr (Struct4 CInt CChar CDouble CDouble)
-foreign import ccall "sIntDoubleDoubleInt" sIntDoubleDoubleInt :: Ptr (Struct4 CInt CDouble CDouble CInt)
-foreign import ccall "sDoubleIntCharChar" sDoubleIntCharChar :: Ptr (Struct4 CDouble CInt CChar CChar)
+s2id = Struct2 i d
+s2ii = Struct2 i i
+s2df = Struct2 d f
 
-tests = testGroup "Foreign Imports" [
-        testCase "sIntDouble"     $ (peek' sIntDouble)     >>= (@?= Struct2 63 63.63)
-      , testCase "sIntInt"        $ (peek' sIntInt)        >>= (@?= Struct2 63 63)
-      , testCase "sDoubleFloat"   $ (peek' sDoubleFloat)   >>= (@?= Struct2 63.63 42.42)
-      , testCase "sIntCharDouble" $ (peek' sIntCharDouble) >>= (@?= Struct3 63 1 63.63)
-      , testCase "sIntDoubleChar" $ (peek' sIntDoubleChar) >>= (@?= Struct3 63 63.63 1)
-      , testCase "sIntCharDoubleDouble" $ (peek' sIntCharDoubleDouble) >>= (@?= Struct4 63 1 63.63 63.63)
-      , testCase "sIntDoubleDoubleInt"  $ (peek' sIntDoubleDoubleInt)  >>= (@?= Struct4 63 63.63 63.63 63)
-      , testCase "sDoubleIntCharChar"   $ (peek' sDoubleIntCharChar)   >>= (@?= Struct4 63.63 63 1 1)
+s3icd = Struct3 i ch d
+s3idc = Struct3 i d ch
+
+s4icdd = Struct4 i ch d d
+s4iddi = Struct4 i d  d i
+s4dicc = Struct4 d i ch ch
+
+c "sIntDouble"   's2id
+c "sIntInt"      's2ii
+c "sDoubleFloat" 's2df
+
+c "sIntCharDouble" 's3icd
+c "sIntDoubleChar" 's3idc
+
+c "sIntCharDoubleDouble" 's4icdd
+c "sIntDoubleDoubleInt"  's4iddi
+c "sDoubleIntCharChar"   's4dicc
+
+tests = testGroup "ForeignImports" [
+      case_sIntDouble, case_sIntInt, case_sDoubleFloat
+    , case_sIntCharDouble, case_sIntDoubleChar
+    , case_sIntCharDoubleDouble, case_sIntDoubleDoubleInt, case_sDoubleIntCharChar
     ]
