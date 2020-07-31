@@ -5,7 +5,7 @@ import Language.Haskell.TH
 import Language.Haskell.TH.Syntax (Lift)
 import Foreign.Ptr (Ptr)
 import Foreign.Marshal.Alloc (free)
-import Foreign.Storable (peek)
+import Foreign.Storable (peek, sizeOf)
 import Test.HUnit ((@?=))
 import Test.Framework.Providers.HUnit (testCase)
 
