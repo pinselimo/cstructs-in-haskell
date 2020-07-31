@@ -30,6 +30,13 @@ c cname res = do
 
 ptr t = [t| Ptr $(t) |]
 
+size :: Name -> Int -> DecsQ
+size uname res = let
+                  sname = show uname
+                  body = normalB [| testCase sname $ sizeOf $(varE uname) @?= res |]
+                  clauses = [clause [] body []]
+    in sequence [funD (mkName $ "case_" ++ sname) clauses]
+
 to_struct_type :: [TypeQ] -> TypeQ
 to_struct_type ts = [t| Ptr $(mk_struct) |]
     where struct = conT (mkName $ "Struct" ++ (show $ length ts))
