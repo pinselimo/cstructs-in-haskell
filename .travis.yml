@@ -278,11 +278,16 @@ script:
         cd "$PKGVER"
         cabal configure --enable-tests --ghc-options -O0
         cabal build
-        if [ "$CABALVER" = "1.16" ] || [ "$CABALVER" = "1.18" ]; then
-          cabal test
-        else
-          cabal test --show-details=streaming --log=/dev/stdout
-        fi
+        case "$CABALVER" in
+          1.16|1.18)
+            cabal test
+            ;;
+          head|3.0|3.2)
+            cabal test
+            ;;
+          *)
+            cabal test --show-details=streaming --log=/dev/stdout
+        esac
         cd $ORIGDIR
       done
       ;;
