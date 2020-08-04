@@ -7,7 +7,6 @@ Pythas provides an interface to import Haskell modules.
 
 Note: As of GHC 8.10 structs cannot be passed by value, [only by reference](https://wiki.haskell.org/Foreign_Function_Interface#Foreign_types).
 
-
 ## Usage
 
 You can use these types as a classic ```hackage``` package.
