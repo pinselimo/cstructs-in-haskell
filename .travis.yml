@@ -36,24 +36,24 @@ jobs:
   include:
   # We grab the appropriate GHC and cabal-install versions from hvr's PPA. See:
   # https://github.com/hvr/multi-ghc-travis
-  #- env: BUILD=cabal GHCVER=7.0.4 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
-  #  compiler: ": #GHC 7.0.4"
-  #  addons: {apt: {packages: [cabal-install-1.16,ghc-7.0.4,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
-  #- env: BUILD=cabal GHCVER=7.2.2 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
-  #  compiler: ": #GHC 7.2.2"
-  #  addons: {apt: {packages: [cabal-install-1.16,ghc-7.2.2,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
-  #- env: BUILD=cabal GHCVER=7.4.2 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
-  #  compiler: ": #GHC 7.4.2"
-  #  addons: {apt: {packages: [cabal-install-1.16,ghc-7.4.2,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
-  #- env: BUILD=cabal GHCVER=7.6.3 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
-  #  compiler: ": #GHC 7.6.3"
-  #  addons: {apt: {packages: [cabal-install-1.16,ghc-7.6.3,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
-  #- env: BUILD=cabal GHCVER=7.8.4 CABALVER=1.18 HAPPYVER=1.19.5 ALEXVER=3.1.7
-  #  compiler: ": #GHC 7.8.4"
-  #  addons: {apt: {packages: [cabal-install-1.18,ghc-7.8.4,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
-  #- env: BUILD=cabal GHCVER=7.10.3 CABALVER=1.22 HAPPYVER=1.19.5 ALEXVER=3.1.7
-  #  compiler: ": #GHC 7.10.3"
-  #  addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.3,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+  - env: BUILD=cabal GHCVER=7.0.4 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
+    compiler: ": #GHC 7.0.4"
+    addons: {apt: {packages: [cabal-install-1.16,ghc-7.0.4,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+  - env: BUILD=cabal GHCVER=7.2.2 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
+    compiler: ": #GHC 7.2.2"
+    addons: {apt: {packages: [cabal-install-1.16,ghc-7.2.2,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+  - env: BUILD=cabal GHCVER=7.4.2 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
+    compiler: ": #GHC 7.4.2"
+    addons: {apt: {packages: [cabal-install-1.16,ghc-7.4.2,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+  - env: BUILD=cabal GHCVER=7.6.3 CABALVER=1.16 HAPPYVER=1.19.5 ALEXVER=3.1.7
+    compiler: ": #GHC 7.6.3"
+    addons: {apt: {packages: [cabal-install-1.16,ghc-7.6.3,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+  - env: BUILD=cabal GHCVER=7.8.4 CABALVER=1.18 HAPPYVER=1.19.5 ALEXVER=3.1.7
+    compiler: ": #GHC 7.8.4"
+    addons: {apt: {packages: [cabal-install-1.18,ghc-7.8.4,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
+  - env: BUILD=cabal GHCVER=7.10.3 CABALVER=1.22 HAPPYVER=1.19.5 ALEXVER=3.1.7
+    compiler: ": #GHC 7.10.3"
+    addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.3,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
   - env: BUILD=cabal GHCVER=8.0.2 CABALVER=1.24 HAPPYVER=1.19.5 ALEXVER=3.1.7
     compiler: ": #GHC 8.0.2"
     addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.2,happy-1.19.5,alex-3.1.7], sources: [hvr-ghc]}}
@@ -95,9 +95,9 @@ jobs:
   #  compiler: ": #stack 8.0.1"
   #  addons: {apt: {packages: [libgmp-dev]}}
 
-  - env: BUILD=stack ARGS="--resolver lts-9"
-    compiler: ": #stack 8.0.2"
-    addons: {apt: {packages: [libgmp-dev]}}
+  #- env: BUILD=stack ARGS="--resolver lts-9"
+  #  compiler: ": #stack 8.0.2"
+  #  addons: {apt: {packages: [libgmp-dev]}}
 
   - env: BUILD=stack ARGS="--resolver lts-11"
     compiler: ": #stack 8.2.2"
@@ -142,9 +142,9 @@ jobs:
   #  compiler: ": #stack 8.0.1 osx"
   #  os: osx
 
-  - env: BUILD=stack ARGS="--resolver lts-9"
-    compiler: ": #stack 8.0.2 osx"
-    os: osx
+  #- env: BUILD=stack ARGS="--resolver lts-9"
+  #  compiler: ": #stack 8.0.2 osx"
+  #  os: osx
 
   - env: BUILD=stack ARGS="--resolver lts-11"
     compiler: ": #stack 8.2.2 osx"
@@ -169,6 +169,8 @@ jobs:
   allow_failures:
   - env: BUILD=cabal GHCVER=head  CABALVER=head HAPPYVER=1.19.5 ALEXVER=3.1.7
   - env: BUILD=stack ARGS="--resolver nightly"
+  - os: osx
+    env: BUILD=stack ARGS="--resolver lts-12"
 
 before_install:
 # Using compiler above sets CC to an invalid value, so unset it
@@ -226,7 +228,7 @@ install:
 
       case "$GHCVER" in
         head)
-          cabal install --only-dependencies --force-reinstalls --ghcoptions=-O0 --reorder-goals --max-backjumps=1 $CABALARGS $PACKAGES
+          cabal install --only-dependencies --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=1 $CABALARGS $PACKAGES
           ;;
         *)
           cabal install --only-dependencies --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
