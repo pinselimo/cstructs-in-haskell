@@ -11,7 +11,7 @@
 # version: 0.10.2
 #
 version: ~> 1.0
-language: c
+language: generic
 os: linux
 dist: xenial
 git:
