@@ -217,14 +217,14 @@ install:
       ;;
     cabal)
       cabal --version
-      travis_retry cabal v2-update
+      travis_retry cabal update
 
       # Get the list of packages from the stack.yaml file. Note that
       # this will also implicitly run hpack as necessary to generate
       # the .cabal files needed by cabal-install.
       PACKAGES=$(stack --install-ghc query locals | grep '^ *path' | sed 's@^ *path:@@')
 
-      cabal v2-install --only-dependencies --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
+      cabal install --only-dependencies --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
       ;;
   esac
   set +ex
@@ -237,25 +237,25 @@ script:
       stack --no-terminal $ARGS test --bench --no-run-benchmarks --haddock --no-haddock-deps
       ;;
     cabal)
-      cabal v2-install --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
+      cabal install --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
 
       ORIGDIR=$(pwd)
       for dir in $PACKAGES
       do
         cd $dir
-        cabal v2-check || [ "$CABALVER" == "1.16" ]
-        cabal v2-sdist
+        cabal check || [ "$CABALVER" == "1.16" ]
+        cabal sdist
         PKGVER=$(cabal info . | awk '{print $2;exit}')
         SRC_TGZ=$PKGVER.tar.gz
         cd dist
         tar zxfv "$SRC_TGZ"
         cd "$PKGVER"
-        cabal v2-configure --enable-tests --ghc-options -O0
-        cabal v2-build
+        cabal configure --enable-tests --ghc-options -O0
+        cabal build
         if [ "$CABALVER" = "1.16" ] || [ "$CABALVER" = "1.18" ]; then
-          cabal v2-test
+          cabal test
         else
-          cabal v2-test --show-details=streaming --log=/dev/stdout
+          cabal test --show-details=streaming --log=/dev/stdout
         fi
         cd $ORIGDIR
       done
