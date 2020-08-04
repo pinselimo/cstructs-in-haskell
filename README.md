@@ -113,7 +113,7 @@ The result of ```sizeOf``` is dependent on the order of types. Its correctness c
 The ```alignment``` function is trivial and only tested implicitly through ```sizeOf```.
 
 Imports from C are tested in ```CTest.hs``` and together with the identity tests form the guarantee that also exports to C are consistent.
-All tests are performed for all available GHC versions through [haskell-ci](https://github.com/haskell-CI/haskell-ci) to ensure maximum compatibility.
+All tests are performed for all available GHC/CABAL/Stack versions through the [Stack CI script](https://docs.haskellstack.org/en/stable/travis_ci/) on both Linux and OSX to ensure maximum compatibility.
 
 ## License
 
