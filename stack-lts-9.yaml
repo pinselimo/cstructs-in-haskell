@@ -37,6 +37,8 @@ packages:
 extra-deps:
   - QuickCheck-2.14.1@sha256:01e46d7b0a8d3148288ec977625f62d5516ebb5031a50c63f0453863301b4a79,7736
   - test-framework-quickcheck2-0.3.0.5@sha256:c25bfe518324a584334baa8139491624d72ee0e04942692a384058b54372efaa,1840
+  - random-1.2.0@sha256:5ca8674e95c46c7eb90f520c26aea22d403625c97697275434afba66ebd32b05,5897
+  - splitmix-0.1@sha256:d50c4d0801a35be7875a040470c09863342514930c82a7d25780a6c2efc4fda9,5249
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
