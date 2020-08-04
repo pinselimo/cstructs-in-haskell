@@ -267,7 +267,13 @@ script:
         cabal sdist
         PKGVER=$(cabal info . | awk '{print $2;exit}')
         SRC_TGZ=$PKGVER.tar.gz
-        cd dist
+        case "$GHCVER" in
+          head|8.8.3|8.10.1)
+            cd dist-newstyle/sdist
+            ;;
+          *)
+            cd dist
+            esac
         tar zxfv "$SRC_TGZ"
         cd "$PKGVER"
         cabal configure --enable-tests --ghc-options -O0
