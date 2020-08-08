@@ -42,32 +42,24 @@ module Foreign.C.Structs (
     , acs
     -- Exports for Template Haskell usage
     , next, sizeof, fmax
-    -- Reexports for Template Haskell
-    , Storable, peek, poke, sizeOf, alignment, castPtr
     ) where
+
 import Foreign.C.Structs.Types (
-     Struct2(..)
-    ,Struct3(..)
-    ,Struct4(..)
-    ,Struct5(..)
-    ,Struct6(..)
+      Struct2(..)
+    , Struct3(..)
+    , Struct4(..)
+    , Struct5(..)
+    , Struct6(..)
     )
 
 import Foreign.C.Structs.Templates (
-     structT
-    ,acs
+      structT
+    , acs
     )
 
-import Foreign.Storable (
-     Storable, peek, poke, sizeOf, alignment
-    )
-import Foreign.Ptr (
-     castPtr
-    )
 import Foreign.C.Structs.Utils (
-     next
-    ,sizeof
-    ,fmax
+      next
+    , sizeof
+    , fmax
     )
-
 
