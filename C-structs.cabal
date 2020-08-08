@@ -5,7 +5,7 @@ License: MIT
 License-file: LICENSE
 Author: Simon Plakolb
 Copyright: (c) 2020 Simon Plakolb
-Homepage: https://github.com/pinselimo/cstructs-in-haskell
+Homepage: https://github.com/pinselimo/cstructs-in-haskell#readme
 Synopsis: C-Structs implementation for Haskell
 Description:
     C-structs lets you create correct C structs in Haskell.
