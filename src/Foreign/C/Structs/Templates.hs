@@ -46,14 +46,14 @@ acs big_n small_n = [| \struct -> $(caseE [| struct |] [m]) |]
 
 structTypeT :: Int -> Dec
 #if __GLASGOW_HASKELL__ < 800
-structTypeT nfields = DataD [] (sTypeN nfields) tyVars [constructor] deriv''
+structTypeT nfields = DataD [] (structType nfields) tyVars [constructor] deriv''
 #elif __GLASGOW_HASKELL__ < 802
-structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] deriv'
+structTypeT nfields = DataD [] (structType nfields) tyVars Nothing [constructor] deriv'
 #else
-structTypeT nfields = DataD [] (sTypeN nfields) tyVars Nothing [constructor] [deriv]
+structTypeT nfields = DataD [] (structType nfields) tyVars Nothing [constructor] [deriv]
 #endif
     where tyVars    = map PlainTV $ take nfields $ fieldnames ""
-          constructor = RecC (sTypeN nfields) $ take nfields records
+          constructor = RecC (structType nfields) $ take nfields records
           records     = zipWith defRec (getters nfields) (fieldnames "")
 #if __GLASGOW_HASKELL__ < 800
           defRec n t  = (,,) n NotStrict (VarT t)
@@ -79,7 +79,7 @@ storableInstanceT nfields = InstanceD Nothing cxt tp decs
 #else
           cxt  = map (storable . VarT) vars
 #endif
-          tp   = storable $ foldl AppT (ConT $ sTypeN nfields) $ map VarT vars
+          tp   = storable $ foldl AppT (ConT $ structType nfields) $ map VarT vars
 
           decs = [ sizeOfT nfields
                  , alignmentT nfields
@@ -118,7 +118,7 @@ peekT nfields = FunD 'peek [clause]
           goto n p next_p = [bindVar' p n, bindPtr' next_p p (VarE n)]
 
           final = [ bindVar' (last ptrs) (last vars)
-                  , NoBindS $ AppE (VarE 'return) $ foldl AppE (ConE (sTypeN nfields)) (map VarE vars)
+                  , NoBindS $ AppE (VarE 'return) $ foldl AppE (ConE (structType nfields)) (map VarE vars)
                 ]
 
 pokeT :: Int -> Dec
@@ -128,7 +128,7 @@ pokeT nfields = FunD 'poke [clause]
           ptrs = tail $ take nfields $ fieldnames "_ptr"
           clause = Clause patterns (NormalB body) []
 
-          patterns = [VarP ptr, ConP (sTypeN nfields) (map VarP vars)]
+          patterns = [VarP ptr, ConP (structType nfields) (map VarP vars)]
           body = DoE $ [init_poke, init_next] ++ concat gotos ++ [final]
 
           init_poke = NoBindS
@@ -144,7 +144,7 @@ pokeT nfields = FunD 'poke [clause]
 
 -- Helpers and Constants
 
-sTypeN n = mkName ("Struct" ++ show n)
+structType n = mkName ("Struct" ++ show n)
 struct   = mkName "struct"
 ptr      = mkName "ptr"
 castPtr' = AppE (VarE 'castPtr) (VarE ptr)
