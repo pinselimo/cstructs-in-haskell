@@ -58,7 +58,7 @@ Test-Suite unit-tests
     includes: c_test.h
     c-sources: test/libs/c_test.c
     build-depends:
-        C-structs    >= 0.1 && < 0.3,
+        C-structs,
         base         >= 3.0 && < 5.0,
         HUnit        >= 1.2 && < 1.7,
         QuickCheck   >= 2.10 && < 2.15,
