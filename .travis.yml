@@ -290,7 +290,7 @@ script:
         tar zxfv "$SRC_TGZ"
         cd "$PKGVER"
         cabal configure --enable-tests --ghc-options -O0
-        cabal build
+        cabal build all
         case "$CABALVER" in
           1.16|1.18)
             cabal test
