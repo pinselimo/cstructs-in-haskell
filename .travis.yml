@@ -238,8 +238,9 @@ install:
           touch cabal.project
           echo "packages: ." >> cabal.project
           echo "package C-structs" >> cabal.project
-          cat cabal project || true
-          cabal install --lib --only-dependencies --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
+          cat cabal.project || true
+          # cabal install --lib --only-dependencies --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
+          cabal build --disable-tests --disable-benchmarks --dep -j2 all
           ;;
         *)
           cabal install --only-dependencies --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
@@ -258,7 +259,14 @@ script:
     cabal)
       case "$GHCVER" in
         head|8.8.3|8.10.1)
-          cabal install --lib --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
+          rm -rf cabal.project
+          touch cabal.project
+          echo "packages: ." >> cabal.project
+          echo "package C-structs" >> cabal.project
+          cat cabal.project || true
+          # cabal install --lib --only-dependencies --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
+          cabal build --disable-tests --disable-benchmarks --dep -j2 all
+          # cabal install --lib --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
           ;;
         *)
           cabal install --enable-tests --enable-benchmarks --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
