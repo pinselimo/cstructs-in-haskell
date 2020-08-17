@@ -290,15 +290,17 @@ script:
         tar zxfv "$SRC_TGZ"
         cd "$PKGVER"
         cabal configure --enable-tests --ghc-options -O0
-        cabal build all
         case "$CABALVER" in
           1.16|1.18)
+            cabal build
             cabal test
             ;;
           head|3.0|3.2)
-            cabal test
+            cabal build all
+            cabal test all
             ;;
           *)
+            cabal build
             cabal test --show-details=streaming --log=/dev/stdout
         esac
         cd $ORIGDIR
