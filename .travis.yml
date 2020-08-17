@@ -234,7 +234,11 @@ install:
 
       case "$GHCVER" in
         head|8.8.3|8.10.1)
+          rm -rf cabal.project
+          touch cabal.project
           echo "packages: ." >> cabal.project
+          echo "package C-structs" >> cabal.project
+          cat cabal project || true
           cabal install --lib --only-dependencies --force-reinstalls --ghc-options=-O0 --reorder-goals --max-backjumps=-1 $CABALARGS $PACKAGES
           ;;
         *)
