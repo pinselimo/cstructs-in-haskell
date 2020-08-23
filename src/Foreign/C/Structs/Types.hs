@@ -16,7 +16,7 @@ module Foreign.C.Structs.Types (
 import Foreign.Storable (Storable, peek, poke, alignment, sizeOf)
 import Foreign.Ptr (Ptr, castPtr)
 
-import Foreign.C.Structs.Utils
+import Foreign.C.Structs.Utils (next, fmax, sizeof)
 import Foreign.C.Structs.Templates (structT)
 
 -- | A 'Struct2' can hold two records of any 'Storable' types @a@ and @b@.
