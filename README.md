@@ -108,7 +108,7 @@ instance Storable Struct8 ...
 
 ### Accessors
 
-The naming scheme of the accessor functions follows the names of the ordinal numbers. This can be inconvenient in a Template Haskell context. For these situations ```Foreign.C.Structs```exposes the ```acs``` function:
+The naming scheme of the accessor functions follows the names of the ordinal numbers. This can be inconvenient in a Template Haskell context. For these situations ```Foreign.C.Structs``` exposes the ```acs``` function:
 
 ~~~haskell
 $(acs 8 2)
