@@ -10,7 +10,7 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform: [ubuntu-latest, windows-latest]
         include:
           - ghc: '7.4.2'
             cabal: '1.16'
