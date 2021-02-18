@@ -74,5 +74,5 @@ Test-Suite doctest
     hs-source-dirs: test
     build-depends:
         base        >= 4.0 && < 5.0,
-        doctest     >= 0.3 && < 0.18,
+        doctest     >= 0.3 && < 0.19,
         Glob        >= 0.1 && < 0.11
