@@ -13,7 +13,7 @@ jobs:
         platform: [ubuntu-latest, windows-latest, macos-latest]
         ghc: [ '7.4.2', '7.6.3', '7.8.4', '7.10.3'
              , '8.0.2', '8.2.2', '8.4.4', '8.6.5'
-             , '8.8.3', '8.10.3', 'ghc']
+             , '8.8.4', '8.10.3']
         exclude:
           - platform: macos-latest
             ghc: '7.4.2'
@@ -32,18 +32,8 @@ jobs:
           - platform: macos-latest
             ghc: '8.6.5'
           - platform: macos-latest
-            ghc: '8.8.3'
-          - platform: macos-latest
             ghc: '8.10.3'
-          - platform: ubuntu-latest
-            ghc: 'ghc'
-          - platform: windows-latest
-            ghc: 'ghc'
         include:
-          - ghc: 'ghc'
-            cabal: '3.2'
-            build: 'build --enable-tests --enable-benchmarks all'
-            test: 'test all'
           - ghc: '7.4.2'
             cabal: '1.16'
             build: 'build --enable-tests --enable-benchmarks'
@@ -76,7 +66,7 @@ jobs:
             cabal: '2.4'
             build: 'build --enable-tests --enable-benchmarks'
             test: 'test --show-details=streaming --log=/dev/stdout'
-          - ghc: '8.8.3'
+          - ghc: '8.8.4'
             cabal: '3.0'
             build: 'build --enable-tests --enable-benchmarks all'
             test: 'test all'
