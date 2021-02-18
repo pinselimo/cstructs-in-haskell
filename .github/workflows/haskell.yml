@@ -19,7 +19,7 @@ jobs:
             ghc: '8.10.3'
         include:
           - ghc: '8.6.5'
-            cabal: '3.2.0.0'
+            cabal: '3.0.0.0'
             build: 'build --enable-tests --enable-benchmarks'
             test: 'test --show-details=streaming --log=/dev/stdout'
           - ghc: '8.8.4'
