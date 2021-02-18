@@ -1,0 +1,83 @@
+name: Haskell CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - ghc: '7.4.2'
+            cabal: '1.16'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test'
+          - ghc: '7.6.3'
+            cabal: '1.16'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test'
+          - ghc: '7.8.4'
+            cabal: '1.18'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test'
+          - ghc: '7.10.3'
+            cabal: '1.22'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test --show-details=streaming --log=/dev/stdout'
+          - ghc: '8.0.2'
+            cabal: '1.24'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test --show-details=streaming --log=/dev/stdout'
+          - ghc: '8.2.2'
+            cabal: '2.0'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test --show-details=streaming --log=/dev/stdout'
+          - ghc: '8.4.4'
+            cabal: '2.2'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test --show-details=streaming --log=/dev/stdout'
+          - ghc: '8.6.5'
+            cabal: '2.4'
+            build: 'build --enable-tests --enable-benchmarks'
+            test: 'test --show-details=streaming --log=/dev/stdout'
+          - ghc: '8.8.3'
+            cabal: '3.0'
+            build: 'build --enable-tests --enable-benchmarks all'
+            test: 'test all'
+          - ghc: '8.10.3'
+            cabal: '3.2'
+            build: 'build --enable-tests --enable-benchmarks all'
+            test: 'test all'
+    runs-on: ${{ matrix.platform }}
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-haskell@v1
+      with:
+        ghc-version: ${{ matrix.include.ghc }}
+        cabal-version: ${{ matrix.include.cabal }}
+    
+    - name: Cache
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-cabal
+      with:
+        path: ~/.cabal
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/*.cabal') }}-${{ hashFiles('**/cabal.project') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      run: |
+        cabal update
+        cabal build --only-dependencies --enable-tests --enable-benchmarks
+    - name: Build
+      run: cabal ${{ matrix.include.build }}
+    - name: Run tests
+      run: cabal ${{ matrix.include.test }}
