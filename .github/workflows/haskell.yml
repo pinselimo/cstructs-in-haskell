@@ -53,14 +53,14 @@ jobs:
             build: 'build --enable-tests --enable-benchmarks all'
             test: 'test all'
     runs-on: ${{ matrix.platform }}
-    
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-haskell@v1
       with:
-        ghc-version: ${{ matrix.include.ghc }}
-        cabal-version: ${{ matrix.include.cabal }}
-    
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: ${{ matrix.cabal }}
+
     - name: Cache
       uses: actions/cache@v1
       env:
@@ -78,6 +78,6 @@ jobs:
         cabal update
         cabal build --only-dependencies --enable-tests --enable-benchmarks
     - name: Build
-      run: cabal ${{ matrix.include.build }}
+      run: cabal ${{ matrix.build }}
     - name: Run tests
-      run: cabal ${{ matrix.include.test }}
+      run: cabal ${{ matrix.test }}
