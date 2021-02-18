@@ -11,21 +11,13 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        #        ghc: ['7.4.2', '7.6.3', '7.8.4', '7.10.3', '8.0.2', 
-        ghc: [ '8.4.4', '8.6.5'
-             , '8.8.4', '8.10.3']
+        ghc: ['8.6.5', '8.8.4', '8.10.3']
         exclude:
-          - platform: macos-latest
-            ghc: '8.4.4'
           - platform: macos-latest
             ghc: '8.6.5'
           - platform: macos-latest
             ghc: '8.10.3'
         include:
-          - ghc: '8.4.4'
-            cabal: '3.2.0.0'
-            build: 'build --enable-tests --enable-benchmarks'
-            test: 'test --show-details=streaming --log=/dev/stdout'
           - ghc: '8.6.5'
             cabal: '3.2.0.0'
             build: 'build --enable-tests --enable-benchmarks'
