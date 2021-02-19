@@ -18,12 +18,8 @@ jobs:
         include:
           - ghc: '8.8.4'
             cabal: '3.0.0.0'
-            build: 'build --enable-tests --enable-benchmarks all'
-            test: 'test all'
           - ghc: '8.10.3'
             cabal: '3.2.0.0'
-            build: 'build --enable-tests --enable-benchmarks all'
-            test: 'test all'
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -50,6 +46,6 @@ jobs:
         cabal update
         cabal build --only-dependencies --enable-tests --enable-benchmarks
     - name: Build
-      run: cabal ${{ matrix.build }}
+      run: cabal build --enable-tests --enable-benchmarks all
     - name: Run tests
-      run: cabal ${{ matrix.test }}
+      run: cabal test all
