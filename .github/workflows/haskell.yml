@@ -1,0 +1,55 @@
+name: Haskell CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+        ghc: ['8.8.4', '8.10.3']
+        exclude:
+          - platform: macos-latest
+            ghc: '8.10.3'
+        include:
+          - ghc: '8.8.4'
+            cabal: '3.0.0.0'
+            build: 'build --enable-tests --enable-benchmarks all'
+            test: 'test all'
+          - ghc: '8.10.3'
+            cabal: '3.2.0.0'
+            build: 'build --enable-tests --enable-benchmarks all'
+            test: 'test all'
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-haskell@v1
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: ${{ matrix.cabal }}
+
+    - name: Cache
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-cabal
+      with:
+        path: ~/.cabal
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/*.cabal') }}-${{ hashFiles('**/cabal.project') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      run: |
+        cabal update
+        cabal build --only-dependencies --enable-tests --enable-benchmarks
+    - name: Build
+      run: cabal ${{ matrix.build }}
+    - name: Run tests
+      run: cabal ${{ matrix.test }}
