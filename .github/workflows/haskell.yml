@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: haskel/actions/setup@v1
+    - uses: haskell/actions/setup@v1
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
