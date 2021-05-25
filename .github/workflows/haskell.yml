@@ -11,20 +11,24 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        ghc: ['8.8.4', '8.10.3']
+        ghc: ['8.8', '8.10', '9.0', 'latest']
         exclude:
           - platform: macos-latest
-            ghc: '8.10.3'
+            ghc: '8.10'
         include:
-          - ghc: '8.8.4'
+          - ghc: '8.8'
             cabal: '3.0.0.0'
-          - ghc: '8.10.3'
+          - ghc: '8.10'
             cabal: '3.2.0.0'
+          - ghc: '9.0'
+            cabal: '3.4.0.0'
+          - ghc: 'latest'
+            cabal: 'latest'
     runs-on: ${{ matrix.platform }}
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-haskell@v1
+    - uses: haskel/actions/setup@v1
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: ${{ matrix.cabal }}
