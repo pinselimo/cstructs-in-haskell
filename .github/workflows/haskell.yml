@@ -12,9 +12,6 @@ jobs:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
         ghc: ['8.8', '8.10', '9.0', 'latest']
-        exclude:
-          - platform: macos-latest
-            ghc: '8.10'
         include:
           - ghc: '8.8'
             cabal: '3.0.0.0'
