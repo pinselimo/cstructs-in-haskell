@@ -34,7 +34,7 @@
       packages.default  = pkgs.haskellPackages.callPackage fDrv {};
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
-          (ghc.withPackages haskellPackages)
+          (haskell.packages.ghc92.ghc.withPackages haskellPackages)
           cabal-install
         ];
         buildInputs = [ ];
