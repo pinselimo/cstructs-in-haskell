@@ -5,7 +5,7 @@ These can be used for FFI calls, imports and exports.
 This package is part of the development efforts for the Python library [```Pythas```](https://github.com/pinselimo/Pythas/).
 Pythas provides an interface to import Haskell modules.
 
-Note: As of GHC 8.10 structs cannot be passed by value, [only by reference](https://wiki.haskell.org/Foreign_Function_Interface#Foreign_types).
+Note: As of GHC 9.2 structs cannot be passed by value, [only by reference](https://wiki.haskell.org/Foreign_Function_Interface#Foreign_types).
 
 ## Usage
 

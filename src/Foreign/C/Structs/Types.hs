@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell, ScopedTypeVariables, TypeApplications #-}
 {- |
 Module          : Foreign.C.Structs.Types
 Description     : Create C structs from Haskell

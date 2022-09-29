@@ -57,7 +57,11 @@ structTypeT nfields = DataD [] (structType nfields) tyVars Nothing [constructor]
 structTypeT nfields = DataD [] (structType nfields) tyVars Nothing [constructor] [deriv]
 #endif
     where
+#if __GLASGOW_HASKELL__ < 900
           tyVars    = map PlainTV $ take nfields $ fieldnames ""
+#else
+          tyVars    = map (flip PlainTV ()) $ take nfields $ fieldnames ""
+#endif
 
           constructor = RecC (structType nfields) $ take nfields records
 
@@ -130,7 +134,11 @@ peekT nfields = FunD 'peek [clause]
 
           clause = Clause [VarP ptr] (NormalB body) []
 
+#if __GLASGOW_HASKELL__ < 900
           body = DoE $ initial ++ concat gotos ++ final
+#else
+          body = DoE Nothing $ initial ++ concat gotos ++ final
+#endif
 
           initial = [ BindS (VarP $ head vars) (AppE (VarE 'peek) castPtr')
                     , BindS (VarP $ head ptrs) (AppE (AppE (VarE 'next) $ VarE ptr) $ VarE $ head vars)
@@ -150,13 +158,23 @@ pokeT nfields = FunD 'poke [clause]
     where
           vars = take nfields $ fieldnames ""
 
+          types = take nfields $ fieldnames "_ty"
+
           ptrs = tail $ take nfields $ fieldnames "_ptr"
 
           clause = Clause patterns (NormalB body) []
 
+#if __GLASGOW_HASKELL__ < 902
           patterns = [VarP ptr, ConP (structType nfields) (map VarP vars)]
+#else
+          patterns = [VarP ptr, ConP (structType nfields) (map VarT types) (map VarP vars)]
+#endif
 
+#if __GLASGOW_HASKELL__ < 900
           body = DoE $ [init_poke, init_next] ++ concat gotos ++ [final]
+#else
+          body = DoE Nothing $ [init_poke, init_next] ++ concat gotos ++ [final]
+#endif
 
           init_poke = NoBindS
                     $ AppE cast_poke_ptr (VarE $ head vars)
