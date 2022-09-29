@@ -37,7 +37,7 @@ Library
     Default-Language: Haskell2010
     Build-Depends:
         base >= 3.0.0 && < 5.0.0,
-        template-haskell >= 2.2 && < 2.18
+        template-haskell >= 2.2 && < 2.20
     HS-Source-Dirs: src
 
 Test-Suite unit-tests
@@ -62,7 +62,7 @@ Test-Suite unit-tests
         base         >= 3.0 && < 5.0,
         HUnit        >= 1.2 && < 1.7,
         QuickCheck   >= 2.10 && < 2.15,
-        template-haskell >= 2.2 && < 2.18,
+        template-haskell >= 2.2 && < 2.20,
         test-framework  >= 0.4.1 && < 0.9,
         test-framework-hunit >= 0.2.6 && < 0.4,
         test-framework-quickcheck2 >= 0.3.0.4 && < 0.4
