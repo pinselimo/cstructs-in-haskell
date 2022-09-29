@@ -158,11 +158,17 @@ pokeT nfields = FunD 'poke [clause]
     where
           vars = take nfields $ fieldnames ""
 
+          types = take nfields $ fieldnames "_ty"
+
           ptrs = tail $ take nfields $ fieldnames "_ptr"
 
           clause = Clause patterns (NormalB body) []
 
+#if __GLASGOW_HASKELL__ < 902
           patterns = [VarP ptr, ConP (structType nfields) (map VarP vars)]
+#else
+          patterns = [VarP ptr, ConP (structType nfields) (map VarT types) (map VarP vars)]
+#endif
 
 #if __GLASGOW_HASKELL__ < 900
           body = DoE $ [init_poke, init_next] ++ concat gotos ++ [final]
