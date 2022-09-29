@@ -49,4 +49,10 @@ jobs:
     - name: Build
       run: cabal build --enable-tests --enable-benchmarks all
     - name: Run tests
-      run: cabal test all
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          cabal test unit-tests
+        else
+          cabal test all
+        fi
+      shell: bash
